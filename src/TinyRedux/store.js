@@ -1,4 +1,4 @@
-const createStore = reducer => {
+export const createStore = reducer => {
   let state;
   const subscribers = [];
   const coreDispatch = action => {
@@ -22,5 +22,3 @@ const createStore = reducer => {
   coreDispatch({type: '@@redux/INIT'});
   return store;
 };
-
-export default createStore;

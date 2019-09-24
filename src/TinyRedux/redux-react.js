@@ -8,7 +8,7 @@ export const connect = (mapStateToProps = () => ({}), mapDispatchToProps = () =>
   class Connected extends React.Component {
     static contextType = Contexted;
     onStoreOrPropsChange(props) {
-      const {store} = this.context;
+      const store = this.context;
       const state = store.getState();
       const stateProps = mapStateToProps(state, props);
       const dispatchProps = mapDispatchToProps(store.dispatch, props);
@@ -18,7 +18,8 @@ export const connect = (mapStateToProps = () => ({}), mapDispatchToProps = () =>
       });
     }
     componentWillMount() {
-      const {store} = this.context;
+      
+      const store = this.context;
       this.onStoreOrPropsChange(this.props);
       this.unsubscribe = store.subscribe(() =>
         this.onStoreOrPropsChange(this.props)
