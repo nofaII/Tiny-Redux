@@ -43,7 +43,7 @@ export const connect = (mapStateToProps = () => ({}), mapDispatchToProps = () =>
 
 export const Provider = props => {
   return (
-    <Contexted.Provider value={props.value}>
+    <Contexted.Provider value={props.store}>
       {props.children}
     </Contexted.Provider>)
 }

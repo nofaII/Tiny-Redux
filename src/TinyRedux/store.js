@@ -1,4 +1,4 @@
-export const createStore = reducer => {
+export const createStore = (reducer, middleware) => {
   let state;
   const subscribers = [];
   const coreDispatch = action => {
@@ -19,6 +19,28 @@ export const createStore = reducer => {
       };
     }
   };
+  if (middleware) {
+    const dispatch = action => store.dispatch(action);
+    store.dispatch = middleware({
+      dispatch,
+      getState
+    })(coreDispatch);
+  }
   coreDispatch({type: '@@redux/INIT'});
   return store;
+};
+
+export const applyMiddleware = (...middlewares) => store => {
+  if (middlewares.length === 0) {
+    return dispatch => dispatch;
+  }
+  if (middlewares.length === 1) {
+    return middlewares[0](store);
+  }
+  const boundMiddlewares = middlewares.map(middleware =>
+    middleware(store)
+  );
+  return boundMiddlewares.reduce((a, b) =>
+    next => a(b(next))
+  );
 };
