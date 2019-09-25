@@ -1,21 +1,56 @@
-import {COUNT_UP, COUNT_DOWN} from './action-types';
+import {ADD_OPERATOR, SHOW_OPERATORS, CHANGE_VALUE, DISPLAY_RESULT} from './action-types';
 
 const initialState = {
-    count: 0
+    readyForResult: false,
+    currentExpression: [
+        {
+            operator: '',
+            value: ''
+        }
+    ],
+    results: []
 }
 
 const reducer = (state=initialState, action) => {
     switch(action.type) {
-        case COUNT_UP: 
+        case ADD_OPERATOR: {
+            let newArr = [...state.currentExpression];
+            newArr.push({operator: action.operator});
             return {
                 ...state,
-                count: state.count + 1
+                readyForResult: true,
+                currentExpression: newArr
             }
-        case COUNT_DOWN: 
+        }
+        case SHOW_OPERATORS: 
             return {
                 ...state,
-                count: state.count - 1
+                readyForResult: false
             }
+        case DISPLAY_RESULT: 
+            let newResults = [...state.results];
+            newResults.push(action.result)
+            let newExp = state.currentExpression.map(i => {
+                return {
+                    operator: i.operator,
+                    value: ''
+                }
+            })
+            
+            return {
+                ...state,
+                results: newResults,
+                currentExpression: newExp
+            }
+        case CHANGE_VALUE: {
+            let newArr = state.currentExpression.map(item => ({...item}))
+            newArr[action.id].value = action.text;
+            
+            return {
+                ...state,
+                currentExpression: [...newArr]
+            }
+        }
         default: return state;
     }
 }

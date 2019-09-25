@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './example/App';
+import App from './example/components/App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from './TinyRedux/redux-react';
 import store from './example/store';

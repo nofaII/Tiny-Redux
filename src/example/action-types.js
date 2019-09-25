@@ -1,2 +1,4 @@
-export const COUNT_UP = 'COUNT_UP';
-export const COUNT_DOWN = 'COUNT_DOWN';
+export const ADD_OPERATOR = 'ON_ADD_OPERATOR';
+export const SHOW_OPERATORS = 'SHOW_OPERATORS';
+export const CHANGE_VALUE = 'CHANGE_VALUE';
+export const DISPLAY_RESULT = 'DISPLAY_RESULT';
