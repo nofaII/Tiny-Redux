@@ -1,4 +1,6 @@
 export const ADD_OPERATOR = 'ON_ADD_OPERATOR';
 export const SHOW_OPERATORS = 'SHOW_OPERATORS';
 export const CHANGE_VALUE = 'CHANGE_VALUE';
-export const DISPLAY_RESULT = 'DISPLAY_RESULT';
+export const SET_RESULT = 'SET_RESULT';
+export const CALCULATING = 'CALCULATING';
+export const DELETE_OPERATOR = 'DELETE_OPERATOR';

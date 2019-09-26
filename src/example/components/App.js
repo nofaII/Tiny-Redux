@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from '../../TinyRedux/redux-react';
-import {addOperator, showOperators, changeValue, displayResult} from '../actions';
+import {addOperator, showOperators, changeValue, displayResult, deleteOperator} from '../actions';
 import Buttons from './Buttons';
 import Results from './Results';
 import Inputs from './Inputs';
@@ -13,6 +13,8 @@ const App = props => {
                 onChangeValue={props.onChangeValue}
             />
             <Buttons
+                onDeleteOperator={props.onDeleteOperator}
+                calculating={props.calculating}
                 readyForResult={props.readyForResult}
                 onAddOperators={props.onAddOperators}
                 onAddOperator={props.onAddOperator}
@@ -29,7 +31,8 @@ const mapStateToProps = state => {
     return {
         readyForResult: state.readyForResult,
         currentExpression: state.currentExpression,
-        results: state.results
+        results: state.results,
+        calculating: state.calculating
     }
 }
 
@@ -38,7 +41,8 @@ const mapDispatchToProps = dispatch => {
         onAddOperator: i => dispatch(addOperator(i)), 
         onAddOperators: () => dispatch(showOperators()),
         onChangeValue: (text, id) => dispatch(changeValue(text, id)),
-        onDisplayResult: exp => dispatch(displayResult(exp))
+        onDisplayResult: exp => dispatch(displayResult(exp)),
+        onDeleteOperator: () => dispatch(deleteOperator())
     }
 }
 

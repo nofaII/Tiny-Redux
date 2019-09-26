@@ -1,9 +1,15 @@
-import {ADD_OPERATOR, SHOW_OPERATORS, CHANGE_VALUE, DISPLAY_RESULT} from './action-types';
+import {ADD_OPERATOR, SHOW_OPERATORS, CHANGE_VALUE, SET_RESULT, CALCULATING, DELETE_OPERATOR} from './action-types';
 
 export const addOperator = operator => {
     return {
         type: ADD_OPERATOR,
         operator
+    }
+}
+
+export const deleteOperator = () => {
+    return {
+        type: DELETE_OPERATOR
     }
 }
 
@@ -13,14 +19,37 @@ export const showOperators = () => {
     }
 }
 
-export const displayResult = exp => {
-    let result = eval(exp.map(item => {
-        return item.operator + item.value;
-    }).join(''))
+export const calculating = () => {
     return {
-        type: DISPLAY_RESULT,
-        result
+        type: CALCULATING
     }
+}
+
+const asyncCalculation = (currentExpression=[]) => {
+    let calculate = new Promise(success => {
+        setTimeout(() => {
+            const expressionBody = currentExpression.map(item => {
+                return item.operator + ' ' + item.value;
+            }).join(' ')
+            const result = eval(expressionBody)
+            const fullExpression = expressionBody  + ' = ' + result
+            success(fullExpression)
+        }, 1000)
+    })
+    return calculate
+}
+
+const setResult = fullExpression => {
+    return {
+        type: SET_RESULT,
+        result: fullExpression
+    }
+}
+
+export const displayResult = currentExpression => dispatch => {
+    dispatch(calculating())
+    asyncCalculation(currentExpression)
+        .then(fullExpression => dispatch(setResult(fullExpression)))
 }
 
 export const changeValue = (text, id) => {
