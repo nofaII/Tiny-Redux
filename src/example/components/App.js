@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from '../../TinyRedux/redux-react';
+import {connect} from '../../TinyRedux/react-redux';
 import {addOperator, showOperators, changeValue, displayResult, deleteOperator} from '../actions';
 import Buttons from './Buttons';
 import Results from './Results';
