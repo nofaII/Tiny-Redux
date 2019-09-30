@@ -28,11 +28,12 @@ export const calculating = () => {
 const asyncCalculation = (currentExpression=[]) => {
     let calculate = new Promise(success => {
         setTimeout(() => {
-            const expressionBody = currentExpression.map(item => {
+            const onlyFi = currentExpression.filter(item => item.value)
+            const expressionBody = onlyFi.map(item => {
                 return item.operator + ' ' + item.value;
             }).join(' ')
             const result = eval(expressionBody)
-            const fullExpression = expressionBody  + ' = ' + result
+            const fullExpression = result === undefined ? 'empty' : expressionBody  + ' = ' + result;
             success(fullExpression)
         }, 1000)
     })
