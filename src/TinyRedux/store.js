@@ -1,7 +1,17 @@
+const validateAction = action => {
+  if (!action || typeof action !== 'object' || Array.isArray(action)) {
+    throw new Error('Action must be an object!');
+  }
+  if (typeof action.type === 'undefined') {
+    throw new Error('Action must have a type!');
+  }
+};
+
 export const createStore = (reducer, middleware) => {
   let state;
   const subscribers = [];
   const coreDispatch = action => {
+    validateAction(action);
     state = reducer(state, action);
     subscribers.forEach(handler => handler());
   };
