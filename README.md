@@ -1,5 +1,5 @@
 # Tiny-Redux
-A redux implementation with core functionality, including redux-thunk and react-redux features
+A redux implementation with core functionality, including redux-thunk and react-redux features. Each of them is used in the example
 ## Features
 * createStore
 * connect
